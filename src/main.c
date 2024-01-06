@@ -709,7 +709,7 @@ static int find_render_node(char *node, size_t maxlen) {
 	drmDevice *devices[64];
 
 	int n = drmGetDevices2(0, devices, sizeof(devices) / sizeof(devices[0]));
-	for (int i = 0; i < n; ++i) {
+	for (int i = 1; i < n; ++i) {
 		drmDevice *dev = devices[i];
 		if (!(dev->available_nodes & (1 << DRM_NODE_RENDER)))
 			continue;

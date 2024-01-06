@@ -94,7 +94,7 @@ static struct open_h264_context* open_h264_context_create(
 		goto failure;
 
 	if (av_hwdevice_ctx_create(&context->hwctx_ref, AV_HWDEVICE_TYPE_VAAPI,
-				NULL, NULL, 0) != 0)
+				"/dev/dri/renderD129", NULL, 0) != 0)
 		goto failure;
 
 	context->codec_ctx->hw_device_ctx = av_buffer_ref(context->hwctx_ref);

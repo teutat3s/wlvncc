@@ -177,8 +177,14 @@ int egl_init(void)
 	if (egl_load_egl_ext() < 0)
 		return -1;
 
-	egl_display = eglGetPlatformDisplayEXT(EGL_PLATFORM_SURFACELESS_MESA,
-			EGL_DEFAULT_DISPLAY, NULL);
+	EGLDeviceEXT eglDevs[32];
+	EGLint numDevices;
+	PFNEGLQUERYDEVICESEXTPROC eglQueryDevicesEXT = (PFNEGLQUERYDEVICESEXTPROC)
+	eglGetProcAddress("eglQueryDevicesEXT");
+	eglQueryDevicesEXT(32, eglDevs, &numDevices);
+
+	egl_display = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT,
+			eglDevs[1], NULL);
 	if (egl_display == EGL_NO_DISPLAY)
 		return -1;
 
